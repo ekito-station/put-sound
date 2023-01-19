@@ -140,6 +140,8 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 4800000, guid: e7c77f6eaab324a819efdc13b8125a39, type: 3}
   - {fileID: 0}
   - {fileID: 0}
@@ -502,7 +504,7 @@ PlayerSettings:
   enableCrashReportAPI: 0
   cameraUsageDescription: Required For AR.
   locationUsageDescription: 
-  microphoneUsageDescription: 
+  microphoneUsageDescription: Required For Recording.
   bluetoothUsageDescription: 
   switchNMETAOverride: 
   switchNetLibKey: 
