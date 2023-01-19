@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RecordAndPutSoundManager : MonoBehaviour
+public class WalkingRecordAndPutSoundManager : MonoBehaviour
 {
+    Coroutine walkingRecord;
+    public float waitSec;
+
     AudioClip audioClip;
     AudioSource audioSource;
     string micName = "null";
@@ -16,7 +19,7 @@ public class RecordAndPutSoundManager : MonoBehaviour
 
     public GameObject arCamera;
     Vector3 curPos;
-    public float front;
+    public float back;
     public GameObject soundSpherePrefab;
 
     // Start is called before the first frame update
@@ -39,13 +42,35 @@ public class RecordAndPutSoundManager : MonoBehaviour
 
     public void OnRecordButtonClicked()
     {
-        Debug.Log("Start recording.");
-        audioClip = Microphone.Start(deviceName: micName, loop: false, lengthSec: maxTime, frequency: samplingFreq);
+        walkingRecord = StartCoroutine("WalkingRecord");
         recordStopButton.SetActive(true);
         recordButton.SetActive(false);
     }
 
     public void OnRecordStopButtonClicked()
+    {
+        StopCoroutine(walkingRecord);
+        recordButton.SetActive(true);
+        recordStopButton.SetActive(false);
+    }
+
+    private IEnumerator WalkingRecord()
+    {
+        while (true)
+        {
+            StartRecording();
+            yield return new WaitForSeconds(waitSec);
+            StopRecording();
+        }
+    }
+
+    public void StartRecording()
+    {
+        Debug.Log("Start recording.");
+        audioClip = Microphone.Start(deviceName: micName, loop: false, lengthSec: maxTime, frequency: samplingFreq);
+    }
+
+    public void StopRecording()
     {
         if (Microphone.IsRecording(deviceName: micName) == true)
         {
@@ -53,15 +78,12 @@ public class RecordAndPutSoundManager : MonoBehaviour
             Microphone.End(deviceName: micName);
 
             Transform camTran = arCamera.transform;
-            curPos = camTran.position + front * camTran.forward;
+            curPos = camTran.position - back * camTran.forward;
             GameObject soundSphere = Instantiate(soundSpherePrefab, curPos, Quaternion.identity);
             Debug.Log("Placed SoundSphere.");
 
             audioSource = soundSphere.GetComponent<AudioSource>();
             audioSource.clip = audioClip;
-
-            recordButton.SetActive(true);
-            recordStopButton.SetActive(false);
         }
         else
         {
@@ -71,6 +93,6 @@ public class RecordAndPutSoundManager : MonoBehaviour
 
     public void OnChangeSceneButtonClicked()
     {
-        SceneManager.LoadScene("WalkingRecordAndPutSound");
+        SceneManager.LoadScene("RecordAndPutSound");
     }
 }
