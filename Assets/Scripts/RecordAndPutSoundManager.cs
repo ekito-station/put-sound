@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RecordSoundManager : MonoBehaviour
+public class RecordAndPutSoundManager : MonoBehaviour
 {
     AudioClip audioClip;
     AudioSource audioSource;
@@ -12,8 +12,11 @@ public class RecordSoundManager : MonoBehaviour
 
     public GameObject recordButton;
     public GameObject recordStopButton;
-    public GameObject playButton;
-    public GameObject playStopButton;
+
+    public GameObject arCamera;
+    Vector3 curPos;
+    public float front;
+    public GameObject soundSpherePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +27,13 @@ public class RecordSoundManager : MonoBehaviour
         {
             Debug.Log("Device Name: " + device);
             micName = device;
-        }
+        }        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void OnRecordButtonClicked()
@@ -47,6 +50,15 @@ public class RecordSoundManager : MonoBehaviour
         {
             Debug.Log("Stop recording.");
             Microphone.End(deviceName: micName);
+
+            Transform camTran = arCamera.transform;
+            curPos = camTran.position + front * camTran.forward;
+            GameObject soundSphere = Instantiate(soundSpherePrefab, curPos, Quaternion.identity);
+            Debug.Log("Placed SoundSphere.");
+
+            audioSource = soundSphere.GetComponent<AudioSource>();
+            audioSource.clip = audioClip;
+            
             recordButton.SetActive(true);
             recordStopButton.SetActive(false);
         }
@@ -55,39 +67,4 @@ public class RecordSoundManager : MonoBehaviour
             Debug.Log("Not recording.");
         }
     }
-
-    public void OnPlayButtonClicked()
-    {
-        Debug.Log("Start playing.");
-        audioSource.clip = audioClip;
-        audioSource.Play();
-        // StartCoroutine("CheckingPlaying");
-        // playStopButton.SetActive(true);
-        // playButton.SetActive(false);
-    }
-
-    // public void OnPlayStopButtonClicked()
-    // {
-    //     if (audioSource.isPlaying)
-    //     {
-    //         Debug.Log("Stop playing.");
-    //         audioSource.Stop();
-    //         playButton.SetActive(true);
-    //         playStopButton.SetActive(false);
-    //     }
-    // }
-
-    // private IEnumerator CheckingPlaying()
-    // {
-    //     while (true)
-    //     {
-    //         yield return new WaitForFixedUpdate();
-    //         if (!audioSource.isPlaying)
-    //         {
-    //             Debug.Log("Finished playing.");
-    //             OnPlayStopButtonClicked();
-    //             break;
-    //         }
-    //     }
-    // }
 }
