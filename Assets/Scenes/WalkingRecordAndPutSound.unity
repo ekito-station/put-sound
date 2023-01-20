@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b3e411d8b184d5c9c5d96f8faa2aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitSec: 0.5
+  waitSec: 1
   recordButton: {fileID: 1000860115}
   recordStopButton: {fileID: 1026461820}
   arCamera: {fileID: 1354141925}
