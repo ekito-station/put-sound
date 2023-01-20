@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PutSoundManager : MonoBehaviour
 {
     public GameObject arCamera;
-    public GameObject cubePrefab;
+    // public GameObject cubePrefab;
     public GameObject markerPrefab;
 
     public float front;
@@ -23,7 +23,7 @@ public class PutSoundManager : MonoBehaviour
 
     }
 
-    public void OnClickPutButton()
+    public void OnPutButtonClicked()
     {
         // Vector3 cameraPosition = arCamera.transform.position; // AR Cameraの座標を取得
 
@@ -35,7 +35,7 @@ public class PutSoundManager : MonoBehaviour
         Debug.Log("Placed a marker.");
     }
 
-    public void OnClickTrashButton()
+    public void OnTrashButtonClicked()
     {
         Debug.Log("Clicked Trash Button.");
         SceneManager.LoadScene("PutSound");

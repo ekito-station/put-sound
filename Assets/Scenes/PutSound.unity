@@ -307,8 +307,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arCamera: {fileID: 1354141925}
-  cubePrefab: {fileID: 2414733140100449860, guid: cffd2a680d9a74e34bdca87d2e5d5bce,
-    type: 3}
   markerPrefab: {fileID: 3450465167619744565, guid: a04cc394744f14afb8cf8937359980d5,
     type: 3}
   front: 0.3
@@ -412,7 +410,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 855738938}
         m_TargetAssemblyTypeName: PutSoundManager, Assembly-CSharp
-        m_MethodName: OnClickPutButton
+        m_MethodName: OnPutButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -545,7 +543,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 855738938}
         m_TargetAssemblyTypeName: PutSoundManager, Assembly-CSharp
-        m_MethodName: OnClickTrashButton
+        m_MethodName: OnTrashButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

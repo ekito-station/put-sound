@@ -17,7 +17,7 @@ public class RecordAndPutSoundManager : MonoBehaviour
     public GameObject arCamera;
     Vector3 curPos;
     public float front;
-    public GameObject soundSpherePrefab;
+    public GameObject spherePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +28,13 @@ public class RecordAndPutSoundManager : MonoBehaviour
         {
             Debug.Log("Device Name: " + device);
             micName = device;
-        }        
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnRecordButtonClicked()
@@ -54,10 +54,10 @@ public class RecordAndPutSoundManager : MonoBehaviour
 
             Transform camTran = arCamera.transform;
             curPos = camTran.position + front * camTran.forward;
-            GameObject soundSphere = Instantiate(soundSpherePrefab, curPos, Quaternion.identity);
+            GameObject sphere = Instantiate(spherePrefab, curPos, Quaternion.identity);
             Debug.Log("Placed SoundSphere.");
 
-            audioSource = soundSphere.GetComponent<AudioSource>();
+            audioSource = sphere.GetComponent<AudioSource>();
             audioSource.clip = audioClip;
 
             recordButton.SetActive(true);
@@ -69,8 +69,13 @@ public class RecordAndPutSoundManager : MonoBehaviour
         }
     }
 
-    public void OnChangeSceneButtonClicked()
+    public void OnToWalkingRecordAndPutSoundButtonClicked()
     {
         SceneManager.LoadScene("WalkingRecordAndPutSound");
+    }
+
+    public void OnToPutAndProcessButtonClicked()
+    {
+        SceneManager.LoadScene("PutAndProcessSound");
     }
 }
